@@ -1,30 +1,42 @@
 class Triangle
+  # write code here\
 
-  attr_reader :side_a, :side_b, :side_c
+  def initialize(s1, s2, s3)
 
-  def initialize(side_a, side_b, side_c)
-    @side_a = side_a
-    @side_b = side_b
-    @side_c = side_c
+  
+    if s1 >= (s2 + s3) || s2 >= (s1 + s3) || s3 >= (s1 + s2)
+      raise TriangleError
+    end
+
+    if s1 <= 0 || s2 <= 0 ||s3 <= 0
+      raise TriangleError
+    end
+
+    if s1 == nil || s2 == nil ||s3 == nil
+      raise TriangleError
+    end
+
+    @s1 = s1
+    @s2 = s2
+    @s3 = s3
   end
 
   def kind
-    if @side_a + @side_b <= @side_c || @side_a + @side_c <= @side_b || @side_b + @side_c <= @side_a
-      raise TriangleError
+    if @s1 == @s2 && @s1 == @s3
+      return :equilateral
+    elsif @s1 == @s2 || @s2 == @s3 || @s3 == @s1
+      return :isosceles
     else
-      if @side_a == @side_b && @side_a == @side_c && @side_b == @side_c
-        :equilateral
-      elsif @side_a == @side_b || @side_a == @side_c || @side_b == @side_c
-        :isosceles
-      elsif @side_a != @side_b || @side_a != @side_c || @side_b != @side_c
-        :scalene
-      end
-
+      return :scalene
     end
   end
 
 end
 
-class TriangleError < StandardError
 
+
+class TriangleError < StandardError
+  def message
+    "This is not a valid triangle."
+  end
 end
