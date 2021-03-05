@@ -1,42 +1,36 @@
 class Triangle
-  # write code here\
-
-  def initialize(s1, s2, s3)
-
+  # triangle code
+  attr_accessor :ab, :bc, :ca, :type
   
-    if s1 >= (s2 + s3) || s2 >= (s1 + s3) || s3 >= (s1 + s2)
+  def initialize(ab,bc,ca)
+    @ab = ab
+    @bc = bc
+    @ca = ca
+  end 
+  
+  def kind 
+    if @ab <= 0 || @bc <= 0 || @ca <= 0 || (@ab + @bc) <= @ca ||  (@ab + @ca) <= @bc || (@ca + @bc) <= @ab
       raise TriangleError
-    end
-
-    if s1 <= 0 || s2 <= 0 ||s3 <= 0
-      raise TriangleError
-    end
-
-    if s1 == nil || s2 == nil ||s3 == nil
-      raise TriangleError
-    end
-
-    @s1 = s1
-    @s2 = s2
-    @s3 = s3
-  end
-
-  def kind
-    if @s1 == @s2 && @s1 == @s3
-      return :equilateral
-    elsif @s1 == @s2 || @s2 == @s3 || @s3 == @s1
-      return :isosceles
-    else
-      return :scalene
-    end
-  end
-
-end
-
-
-
-class TriangleError < StandardError
-  def message
-    "This is not a valid triangle."
+=begin
+      begin 
+        raise Triangle::TriangleError.new()
+      rescue Triangle::TriangleError => error 
+        puts error.message
+      end
+=end 
+    elsif @ab == @bc && @bc == @ca 
+      @type = :equilateral 
+    elsif @ab == @bc || @bc == @ca || @ab == @ca 
+      @type = :isosceles 
+    else 
+      @type = :scalene 
+    end 
+  end 
+ 
+  class TriangleError < StandardError
+    # triangle error code
+    def message
+      "oops"
+    end 
   end
 end
