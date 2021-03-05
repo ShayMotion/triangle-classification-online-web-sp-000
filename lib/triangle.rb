@@ -1,50 +1,26 @@
-require 'pry'
 class Triangle
-  # write code here
-end 
 
-  attr_accessor :side1, :side2, :side3
-  @sides = []
+  attr_reader :side_a, :side_b, :side_c
 
-  def initialize(side1, side2, side3)
-    @side1, @side2, @side3 = side1, side2, side3
-    @sides = [side1, side2, side3]
+  def initialize(side_a, side_b, side_c)
+    @side_a = side_a
+    @side_b = side_b
+    @side_c = side_c
   end
 
   def kind
-    if(negative? == true || valid? == false)
+    if @side_a + @side_b <= @side_c || @side_a + @side_c <= @side_b || @side_b + @side_c <= @side_a
       raise TriangleError
-    elsif(equilateral?)
-      :equilateral
-    elsif(scalene?)
-      :scalene
-    elsif(isosceles?)
-      :isosceles
-    end
-  end
-
-  def negative?
-    @sides.each do |length|
-      if(length <= 0)
-        return true
+    else
+      if @side_a == @side_b && @side_a == @side_c && @side_b == @side_c
+        :equilateral
+      elsif @side_a == @side_b || @side_a == @side_c || @side_b == @side_c
+        :isosceles
+      elsif @side_a != @side_b || @side_a != @side_c || @side_b != @side_c
+        :scalene
       end
+
     end
-  end
-
-  def equilateral?
-    (@side1 == @side2) && (@side1 == @side3)
-  end
-
-  def scalene?
-    (@side1 != @side2) && (@side1!= @side3) && (@side2 != @side3)
-  end
-
-  def isosceles?
-    (@side2 == @side3) || (@side1 == @side2) || (@side1 = @side3)
-  end
-
-  def valid?
-    (@side1 + @side2 > @side3) && (@side2 + @side3 > @side1) && (@side1 + @side3 > @side2)
   end
 
 end
